@@ -21,6 +21,8 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   signUp(email:string, password: string) {
-
+    return this.http.post<User>('/api/signup', {email, password})
+      .shareReplay()
+      .do(user => this.subject.next(user));
   }
 }
